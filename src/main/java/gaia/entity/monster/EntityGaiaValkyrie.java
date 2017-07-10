@@ -201,7 +201,9 @@ public class EntityGaiaValkyrie extends EntityMobDay {
 		return 1;
 	}
 
+	@Override
 	public boolean getCanSpawnHere() {
-		return this.posY > 80.0D && super.getCanSpawnHere();
+		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+		else return this.posY > 80.0D && super.getCanSpawnHere();
 	}
 }

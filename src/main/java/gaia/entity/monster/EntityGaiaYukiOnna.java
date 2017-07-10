@@ -224,7 +224,8 @@ public class EntityGaiaYukiOnna extends EntityMobDay {
 		return this.worldObj.isRaining();
 	}
 
+	@Override
 	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && this.isSnowing() && super.getCanSpawnHere();
+		return this.isSnowing() && super.getCanSpawnHere();
 	}
 }

@@ -144,6 +144,7 @@ public class EntityGaiaMimic extends EntityMobBase {
 	public void knockBack(Entity par1Entity, float par2, double par3, double par5) {}
 
 	public boolean getCanSpawnHere() {
-		return this.posY < 32.0D && super.getCanSpawnHere();
+		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+		else return this.posY < 32.0D && super.getCanSpawnHere();
 	}
 }

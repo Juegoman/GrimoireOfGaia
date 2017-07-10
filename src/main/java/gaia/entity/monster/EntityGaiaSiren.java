@@ -201,7 +201,5 @@ public class EntityGaiaSiren extends EntityMobDay implements IRangedAttackMob {
 		this.tasks.addTask(1, this.aiArrowAttack);
 	}
 	
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+//	public boolean getCanSpawnHere() {		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();		else return this.posY > 60.0D && super.getCanSpawnHere();	}
 }

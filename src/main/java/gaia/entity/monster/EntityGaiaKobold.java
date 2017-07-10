@@ -261,7 +261,7 @@ public class EntityGaiaKobold extends EntityMobDay implements IRangedAttackMob {
 		}
 	}
 
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+//	public boolean getCanSpawnHere() {
+//		return super.getCanSpawnHere();
+//    }
 }

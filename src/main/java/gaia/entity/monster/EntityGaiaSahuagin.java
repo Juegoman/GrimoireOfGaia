@@ -205,6 +205,7 @@ public class EntityGaiaSahuagin extends EntityMobBase implements IRangedAttackMo
 	}
 
 	public boolean getCanSpawnHere() {
-		return this.posY < 60.0D && super.getCanSpawnHere();
+		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+		else return this.posY < 60.0D && super.getCanSpawnHere();
 	}
 }

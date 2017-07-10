@@ -175,7 +175,8 @@ public class EntityGaiaHunter extends EntityMobDay implements IRangedAttackMob {
 		return par1IEntityLivingData;
 	}
 
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+//	public boolean getCanSpawnHere() {
+//		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+//		else return this.posY > 60.0D && super.getCanSpawnHere();
+//	}
 }

@@ -241,8 +241,9 @@ public class EntityGaiaCobbleGolem extends EntityMobDay {
 			}
 		}
 	}
-	
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+
+//	public boolean getCanSpawnHere() {
+//		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+//		else return this.posY > 60.0D && super.getCanSpawnHere();
+//	}
 }

@@ -154,8 +154,8 @@ public class EntityGaiaSharko extends EntityMobBase {
 			}
 		}
 	}
-
 	public boolean getCanSpawnHere() {
-		return this.posY < 32.0D && super.getCanSpawnHere();
+		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+		else return this.posY < 32.0D && super.getCanSpawnHere();
 	}
 }

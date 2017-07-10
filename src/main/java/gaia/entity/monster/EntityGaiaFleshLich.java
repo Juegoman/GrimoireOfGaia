@@ -149,6 +149,7 @@ public class EntityGaiaFleshLich extends EntityMobBase implements IRangedAttackM
 	}
 
 	public boolean getCanSpawnHere() {
-		return this.posY < 16.0D && super.getCanSpawnHere();
+		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+		else return this.posY < 16.0D && super.getCanSpawnHere();
 	}
 }

@@ -171,11 +171,12 @@ public class EntityGaiaBoneKnight extends EntityMobBase {
 			this.motionZ -= par5 / (double)f1 * (double)f2;
 			if(this.motionY > EntityAttributes.knockback2) {
 				this.motionY = EntityAttributes.knockback2;
-			}
+	}
 		}
 	}
 
 	public boolean getCanSpawnHere() {
-		return this.posY < 32.0D && super.getCanSpawnHere();
+		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+		else return this.posY < 32.0D && super.getCanSpawnHere();
 	}
 }

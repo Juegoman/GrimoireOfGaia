@@ -1,9 +1,11 @@
 package gaia.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -11,9 +13,16 @@ import com.google.common.collect.Sets;
 
 public abstract class EntityMobDay extends EntityMobBase {
 
+    static final String SPAWNERCLASSNAME = MobSpawnerBaseLogic.class.getName();
+
 	static Set<Block> spawnBlocks = Sets.newHashSet(new Block[] {
 			Blocks.grass, Blocks.dirt, Blocks.gravel, Blocks.sand, Blocks.snow_layer
 	});
+
+	static Set<Block> notSpawnBlocks = Sets.newHashSet(new Block[] {
+	        Blocks.air, Blocks.torch
+    });
+
 	public EntityMobDay(World par1World) {
 		super(par1World);
 	}
@@ -36,7 +45,7 @@ public abstract class EntityMobDay extends EntityMobBase {
 		return spawnBlocks[var1] && this.posY > 60.0D && this.worldObj.getBlockLightValue(i, j, k) >= 7 && this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox) && this.worldObj.getChunkFromBlockCoords(i, k).getBlockLightValue(i & 15, j, k & 15, 15) < 7;
 	}
 	*/
-	
+
 	@Override
 	public boolean getCanSpawnHere() {
 		int i = MathHelper.floor_double(this.posX);
@@ -44,12 +53,20 @@ public abstract class EntityMobDay extends EntityMobBase {
 		int k = MathHelper.floor_double(this.posZ);
 
 		Block var1 = this.worldObj.getBlock(i, j - 1, k);
-		if (spawnBlocks.contains(var1)) {
+		// Act like a regular mob spawner
+		if (isSpawnedFromSpawner() && !notSpawnBlocks.contains(var1)) {
+            return this.worldObj.getBlockLightValue(i, j, k) <= 7
+                && this.worldObj.getChunkFromBlockCoords(i, k).getBlockLightValue(i & 15, j, k & 15, 15) < 7 //what does this achieve, there are methods on world to get the block light level without timed daylight
+                && this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
+                && !this.worldObj.isAnyLiquid(this.boundingBox);
+
+        } else if (spawnBlocks.contains(var1)) {
 			// also reorder this part, getCollidingBoundingBoxes and checkNoEntityCollisions and isAnyLiquid are really expensive
 			return this.posY > 60.0D && this.worldObj.getBlockLightValue(i, j, k) >= 7
-					&& this.worldObj.getChunkFromBlockCoords(i, k).getBlockLightValue(i & 15, j, k & 15, 15) < 7 //what does this achieve, there are methods on world to get the block light level without timed daylight
-					&& this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
-					&& !this.worldObj.isAnyLiquid(this.boundingBox);
+				&& this.worldObj.getChunkFromBlockCoords(i, k).getBlockLightValue(i & 15, j, k & 15, 15) < 7 //what does this achieve, there are methods on world to get the block light level without timed daylight
+				&& this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
+				&& !this.worldObj.isAnyLiquid(this.boundingBox);
+
 		}
 		return false;
 	}

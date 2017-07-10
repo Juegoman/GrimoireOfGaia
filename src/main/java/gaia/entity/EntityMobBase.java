@@ -6,11 +6,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.world.World;
 
 public abstract class EntityMobBase extends EntityMob {
 
-	public EntityMobBase(World par1World) {
+    static final String SPAWNERCLASSNAME = MobSpawnerBaseLogic.class.getName();
+
+    public EntityMobBase(World par1World) {
 		super(par1World);
 	}
 
@@ -24,6 +27,14 @@ public abstract class EntityMobBase extends EntityMob {
 			return false;
 		}
 	}
+
+	protected boolean isSpawnedFromSpawner() {
+        StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+        for (StackTraceElement traceE : trace) {
+            if (traceE.getClassName().equals(SPAWNERCLASSNAME)) return true;
+        }
+        return false;
+    }
 
 	/** 
 	public boolean attackEntityAsMob(Entity par1Entity) {

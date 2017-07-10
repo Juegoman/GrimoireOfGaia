@@ -310,7 +310,5 @@ public class EntityGaiaWitch extends EntityMobBase implements IRangedAttackMob {
 		return par1PotionEffect.getPotionID() == Potion.poison.id?false:super.isPotionApplicable(par1PotionEffect);
 	}
 
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+	public boolean getCanSpawnHere() {		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();		else return this.posY > 60.0D && super.getCanSpawnHere();	}
 }

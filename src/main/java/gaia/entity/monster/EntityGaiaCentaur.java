@@ -231,8 +231,9 @@ public class EntityGaiaCentaur extends EntityMobDay implements IRangedAttackMob 
 		this.tasks.removeTask(this.aiAvoid);
 		this.tasks.addTask(1, this.aiArrowAttack);
 	}
-	
-	public boolean getCanSpawnHere() {
-		return this.posY > 60.0D && super.getCanSpawnHere();
-	}
+
+//	public boolean getCanSpawnHere() {
+//		if (isSpawnedFromSpawner()) return super.getCanSpawnHere();
+//		else return this.posY > 60.0D && super.getCanSpawnHere();
+//	}
 }
